@@ -4,18 +4,14 @@ import App from './App.tsx';
 import "./globals.css";
 
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
-import Home from './routes/Home/index.tsx';
-import Produtos from './routes/Produtos/index.tsx';
-import EditarProdutos from './routes/EditarProdutos/index.tsx';
+import Login from './routes/Login/index.tsx';
+import Cadastro from './routes/Cadastro/index.tsx';
 import Error from './routes/Error/index.tsx';
-import ExemploLista from './routes/ExemploLista/index.tsx';
 
 const router = createBrowserRouter([
   {path:"/", element:<App/>, errorElement:<Error/> , children:[
-    {path:"/",element:<Home/>},
-    {path:"/produtos",element:<Produtos/>},
-    {path:"/editar/produtos/:id",element:<EditarProdutos/>},
-    {path:"/exemplo", element:<ExemploLista/>}
+    {path:"/",element:<Login/>},
+    {path:"/cadastro",element:<Cadastro/>},
   ]}
 ]);
 

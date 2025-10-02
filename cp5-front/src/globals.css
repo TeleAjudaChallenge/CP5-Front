@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+:root{
+    scroll-behavior: smooth;
+}
+
+@layer{
+    .container{
+        @apply flex flex-col justify-between h-[100vh];
+
+        & header{
+            @apply bg-amber-400;
+
+           & a{
+            @apply hover:bg-amber-700 rounded-2xl;
+           }
+
+        }
+
+
+    }
+
+
+    .main{
+        @apply flex-1 overflow-y-auto;
+
+        & h1{
+            @apply text-2xl font-bold text-center my-4;
+        }
+
+        & .card{
+            @apply bg-white border-2 border-gray-300 rounded-md p-4 mb-4;
+
+            & h2{
+                @apply text-xl font-semibold mb-2;
+            }
+
+            & p{
+                @apply text-gray-700;
+            }
+        }
+    }
+    .footer{
+        @apply bg-amber-400 text-center p-4;
+
+        & p{
+            @apply text-white;
+        }
+    }
+    
+
+    .frmEditarProduto{
+        @apply flex flex-col gap-2 w-full max-w-md mx-auto my-4 bg-white border-2 border-gray-300 rounded-md p-4;
+
+        & input{
+            @apply border-2 border-gray-300 rounded-md p-2;
+            @apply focus:outline-none focus:ring-2 focus:ring-amber-400;
+        }
+
+        & button{
+            @apply bg-amber-400 hover:bg-amber-700 rounded-md p-2;
+        }
+
+        & .btnCancelar{
+            @apply bg-red-500 hover:bg-red-700;
+        }
+
+    }
+
+    
+
+}
