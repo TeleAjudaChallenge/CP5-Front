@@ -18,137 +18,134 @@ export default function Login() {
   } = useForm<TipoUsuario>();
 
   const onSubmit = async ({ nomeUsuario, email }: TipoUsuario) => {
-    (async () => {
-      try {
-        const response = await fetch(
-          `${API_URL}/usuarios?nomeUsuario=${nomeUsuario}&email=${email}`
+    try {
+      const response = await fetch(
+        `${API_URL}/usuarios?nomeUsuario=${nomeUsuario}&email=${email}`
+      );
+      const data = await response.json();
+
+      if (Array.isArray(data) && data.length > 0) {
+        const user = data[0];
+        sessionStorage.setItem(
+          "auth:user",
+          JSON.stringify({
+            id: user.id,
+            nomeUsuario: user.nomeUsuario,
+            email: user.email,
+          })
         );
-
-        const data = await response.json();
-
-        if (Array.isArray(data) && data.length > 0) {
-          const user = data[0];
-          sessionStorage.setItem(
-            "auth:user",
-            JSON.stringify({
-              id: user.id,
-              nomeUsuario: user.nomeUsuario,
-              email: user.email,
-            })
-          );
-          alert("Login realizado com sucesso!");
-          navigate("/");
-        } else {
-          alert("Usuário ou e-mail incorretos!");
-        }
-      } catch (e) {
-        console.error(e);
-        alert("Erro ao conectar à API.");
+        alert("Login realizado com sucesso!");
+        navigate("/");
+      } else {
+        alert("Usuário ou e-mail incorretos!");
       }
-    })();
+    } catch (e) {
+      console.error(e);
+      alert("Erro ao conectar à API.");
+    }
   };
 
   return (
-    <main className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
-      {/* Coluna Esquerda: Login */}
-      <div className="w-1/2 flex items-center justify-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-        <div className="max-w-md w-full space-y-8">
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-            <span className="text-pink-600">SEU</span>LOGO
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-300">
-            Para continuar, faça login no <span className="font-bold">SEULOGO</span>
-          </p>
-          <form
-            className="mt-8 space-y-6"
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-          >
-            <div>
-              <label htmlFor="nomeUsuario" className="sr-only">
-                Usuário
-              </label>
-              <input
-                id="nomeUsuario"
-                type="text"
-                autoComplete="username"
-                required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
-                placeholder="Usuário"
-                {...register("nomeUsuario", {
-                  required: "Informe o usuário.",
-                  minLength: { value: 3, message: "Mínimo de 3 caracteres." },
-                })}
-                aria-invalid={!!errors.nomeUsuario || undefined}
-              />
-              {errors.nomeUsuario && (
-                <small className="text-red-500 mt-1 block">
-                  {errors.nomeUsuario.message}
-                </small>
-              )}
-            </div>
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
-                placeholder="Email"
-                {...register("email", {
-                  required: "Informe o email.",
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: "Email inválido.",
-                  },
-                })}
-                aria-invalid={!!errors.email || undefined}
-              />
-              {errors.email && (
-                <small className="text-red-500 mt-1 block">
-                  {errors.email.message}
-                </small>
-              )}
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="text-sm">
+    <div className="flex h-screen w-full items-center justify-center bg-gray-100 dark:bg-gray-900">
+      <div className="w-full max-w-4xl flex rounded-xl shadow-2xl overflow-hidden">
+        {/* Coluna Esquerda: Formulário */}
+        <div className="w-full md:w-1/2 p-8 sm:p-12 bg-white dark:bg-gray-800">
+          <div className="w-full max-w-md mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              Bem-vindo de volta!
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-8">
+              Faça login para continuar.
+            </p>
+            <form
+              className="space-y-6"
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+            >
+              <div>
+                <label
+                  htmlFor="nomeUsuario"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+                >
+                  Usuário
+                </label>
+                <input
+                  id="nomeUsuario"
+                  type="text"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  placeholder="Seu nome de usuário"
+                  {...register("nomeUsuario", {
+                    required: "O nome de usuário é obrigatório.",
+                    minLength: { value: 3, message: "Mínimo de 3 caracteres." },
+                  })}
+                />
+                {errors.nomeUsuario && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.nomeUsuario.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1"
+                >
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  placeholder="voce@exemplo.com"
+                  {...register("email", {
+                    required: "O email é obrigatório.",
+                    pattern: {
+                      value: /\S+@\S+\.\S+/,
+                      message: "Formato de email inválido.",
+                    },
+                  })}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+              <div className="flex items-center justify-end">
                 <a
                   href="#"
-                  className="font-medium text-pink-600 hover:text-pink-500"
+                  className="text-sm font-medium text-pink-600 hover:text-pink-500"
                 >
                   Esqueceu a senha?
                 </a>
               </div>
-            </div>
+              <div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50"
+                >
+                  {isSubmitting ? "Entrando..." : "Entrar"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
 
-            <div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-              >
-                {isSubmitting ? "Entrando..." : "Entrar"}
-              </button>
-            </div>
-          </form>
+        {/* Coluna Direita: Convite para Cadastro */}
+        <div className="hidden md:flex w-1/2 flex-col items-center justify-center p-12 bg-gradient-to-r from-pink-500 to-red-500 text-white text-center">
+          <h2 className="text-4xl font-bold mb-4">Novo por aqui?</h2>
+          <p className="text-lg mb-8">
+            Crie sua conta agora mesmo e junte-se a nós. É rápido e fácil!
+          </p>
+          <button
+            onClick={() => navigate("/cadastro")}
+            className="py-3 px-8 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-pink-600 transition-transform transform hover:scale-105 duration-300"
+          >
+            CADASTRAR-SE
+          </button>
         </div>
       </div>
-
-      {/* Coluna Direita: Cadastro */}
-      <div className="w-1/2 flex flex-col items-center justify-center p-8 bg-gradient-to-r from-pink-500 to-red-600 text-white text-center">
-        <h2 className="text-4xl font-extrabold mb-4">Novo por aqui?</h2>
-        <p className="text-xl mb-8">Cadastre-se grátis e comece a curtir</p>
-        <button
-          onClick={() => navigate("/cadastro")}
-          className="py-3 px-8 border-2 border-white text-white font-bold rounded-md hover:bg-white hover:text-pink-600 transition duration-300 ease-in-out"
-        >
-          CADASTRAR-SE
-        </button>
-      </div>
-    </main>
+    </div>
   );
 }
