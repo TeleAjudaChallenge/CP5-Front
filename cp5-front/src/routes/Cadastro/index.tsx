@@ -18,7 +18,7 @@ export default function Cadastro() {
 
  const onSubmit = async ({nome, nomeUsuario, email}: TipoUsuario) => {
     try{
-      const checkResp = await fetch(`${API_URL}/usuarios?nomeUsuario=${encodeURIComponent(nomeUsuario)}&email=${encodeURIComponent(email)}`);
+      const checkResp = await fetch(`${API_URL}/usuarios?nomeUsuario=${nomeUsuario}&email=${email}`);
       const existentes = await checkResp.json();
       if (Array.isArray(existentes) && existentes.length > 0) {
         alert("Já existe um usuário com esse nome de usuário e e-mail.");

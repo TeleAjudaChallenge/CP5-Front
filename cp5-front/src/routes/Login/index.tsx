@@ -13,29 +13,32 @@ export default function Login() {
 
   const {register, handleSubmit, formState: { errors, isSubmitting },} = useForm<TipoUsuario>();
 
-  const onSubmit = async ({nomeUsuario, email}: TipoUsuario) => {
-  try {
-    const response = await fetch(
-      `${API_URL}/usuarios?nomeUsuario=${nomeUsuario}&email=${email}`
-    );
-
-    const data = await response.json();
-
-    if (Array.isArray(data) && data.length > 0) {
-        const user = data[0];
-        sessionStorage.setItem(
-          "auth:user",
-          JSON.stringify({ id: user.id, nomeUsuario: user.nomeUsuario, email: user.email })
+  const onSubmit = async ({nomeUsuario, email}: TipoUsuario) => {(
+    async () => {
+      try {
+        const response = await fetch(
+        `${API_URL}/usuarios?nomeUsuario=${nomeUsuario}&email=${email}`
         );
-        alert("Login realizado com sucesso!");
-        navigate("/");
-      } else {
-        alert("Usuário ou e-mail incorretos!");
+
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          const user = data[0];
+          sessionStorage.setItem(
+            "auth:user",
+            JSON.stringify({ id: user.id, nomeUsuario: user.nomeUsuario, email: user.email })
+          );
+          alert("Login realizado com sucesso!");
+          navigate("/");
+        } else {
+          alert("Usuário ou e-mail incorretos!");
+        }
+      } catch (e) {
+        console.error(e);
+        alert("Erro ao conectar à API.");
       }
-    } catch (e) {
-      console.error(e);
-      alert("Erro ao conectar à API.");
-    }
+          })();
+    
 };
 
 return (
