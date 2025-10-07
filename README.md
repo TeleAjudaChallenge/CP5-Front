@@ -38,7 +38,8 @@ A aplicação estará disponível em http://localhost:5173 (ou em outra porta, s
 
 **Integrantes do Grupo**
 
-Nome Completo	RM
 Julia Correa e Souza Altino 564870
+
 Matheus Borges Sansão	562896
+
 Nicholas Camillo Canadas de Paula 561262
