@@ -1,73 +1,44 @@
-# React + TypeScript + Vite
+# CP5-Front: Sistema de Autenticação
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto foi desenvolvido como parte do Checkpoint 5, com o objetivo de criar uma aplicação front-end completa para autenticação de usuários, incluindo funcionalidades de login e cadastro.
 
-Currently, two official plugins are available:
+A aplicação foi construída utilizando **Vite + React com TypeScript** e estilizada com **Tailwind CSS**. Para simular o back-end e o banco de dados, utilizamos o **`json-server`**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Funcionalidades Implementadas
 
-## React Compiler
+O projeto atende a todos os requisitos solicitados, incluindo:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-   **Estrutura Moderna:** Projeto criado com Vite, React e TypeScript para uma base de código robusta e escalável.
+-   **Sistema de Roteamento:** Implementação de rotas para `/login` e `/cadastro` utilizando `react-router-dom`.
+-   **Validação de Formulários:** Uso da biblioteca `react-hook-form` para validar os campos de entrada em ambos os formulários, fornecendo feedback instantâneo ao usuário.
+-   **Lógica de Cadastro Segura:** Antes de criar um novo usuário, o sistema verifica se o `nomeUsuario` ou `email` já existem no banco de dados para evitar duplicidade.
+-   **Autenticação Simples:** O login é validado contra a API e, em caso de sucesso, as informações do usuário são salvas na `sessionStorage` para simular uma sessão ativa.
+-   **Exibição de Dados do Usuário:** Após o login, o nome e o email do usuário são exibidos no cabeçalho das páginas protegidas.
+-   **Estilização Profissional:** Toda a interface foi estilizada utilizando o framework de design utilitário **Tailwind CSS**.
 
-## Expanding the ESLint configuration
+## Como Executar o Projeto
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Para rodar este projeto localmente, você precisará de dois terminais abertos.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**1. Iniciar a API (json-server):**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+No primeiro terminal, execute o comando abaixo para iniciar o servidor que simula o banco de dados.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+npm run api
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+O json-server começará a rodar na porta http://localhost:3002.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**2. Iniciar a Aplicação Front-end:**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+No segundo terminal, execute o comando para iniciar a aplicação React.
+
+npm run dev
+
+A aplicação estará disponível em http://localhost:5173 (ou em outra porta, se a 5173 estiver em uso).
+
+**Integrantes do Grupo**
+
+Nome Completo	RM
+Julia Correa e Souza Altino 564870
+Matheus Borges Sansão	562896
+Nicholas Camillo Canadas de Paula 561262
