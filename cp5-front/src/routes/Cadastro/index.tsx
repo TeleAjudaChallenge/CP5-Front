@@ -7,7 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL_BASE;
 export default function Cadastro() {
   
   useEffect(() => {
-    document.title = "Editar Produtos";
+    document.title = "Cadastro";
   }, []);
 
   const navigate = useNavigate();
@@ -17,8 +17,6 @@ export default function Cadastro() {
 
 
  const onSubmit = async (data: TipoUsuario) => {
-    // Aqui você pode fazer uma requisição para atualizar os dados do produto.
-
         (
           async () => {
              await fetch(`${API_URL}/${id}`, {
