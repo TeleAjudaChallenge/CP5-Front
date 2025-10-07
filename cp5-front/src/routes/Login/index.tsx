@@ -84,30 +84,5 @@ return (
       </form>
     </main>
   );
-    
-  // return (
-  //   <main>
-  //     <h1>LOGIN</h1>
 
-  //     <div>
-  //       <form onSubmit={onSubmit}>
-  //         <fieldset className="frmEditarProduto">
-  //           <legend>Faça seu login!</legend>
-  //           <div>
-  //             <label htmlFor="nomeUsuario">Usuario:</label>
-  //             <input type="text" id="nomeUsuario" placeholder="Digite aqui seu usuario" value = {nomeUsuario} onChange={(e) => setUsuario(e.target.value)}/>
-  //           </div>
-  //           <div>
-  //             <label htmlFor="email">Email:</label>
-  //             <input type="text" id="email" placeholder="Digite aqui seu email" value = {email} onChange={(e) => setEmail(e.target.value)}/>
-  //           </div>
-  //           <div>
-  //             <button type="submit">Entrar</button>
-  //           </div>
-  //         </fieldset>
-  //       </form>
-  //     </div>
-
-  //   </main>
-  // );
 }
